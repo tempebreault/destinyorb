@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destiny Orb: Cosmic Edition ✨</title>
+<style>
+  /* === Base Styling === */
+  :root {
+    --pink: #ff79c6;
+    --aqua: #00ffff;
+    --bg-dark: #0b0033;
+    --motion: 1; /* motion intensity (1 = normal, 0 = reduced) */
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, var(--bg-dark), #1a0b52, #000);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+    transition: background 1s ease;
+  }
+
+  /* === Nebula Background === */
+  body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,64,129,0.25), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,255,255,0.25), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(255,255,255,0.1), transparent 40%);
+    animation: moveNebula 25s linear infinite alternate;
+    z-index: -1;
+    opacity: calc(0.6 * var(--motion));
+  }
+
+  @keyframes moveNebula {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-100px, -80px) scale(1.1); }
+  }
+
+  /* === Title === */
+  h1 {
+    color: #ffb6c1;
+    text-shadow: 0 0 15px #ff4081, 0 0 30px #0ff;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2.2rem;
+    animation: fadeInDown 1s ease both;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === Containers === */
+  .container {
+    background: rgba(25, 25, 40, 0.85);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255,64,129,0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .container:hover {
+    transform: scale(calc(1 + 0.03 * var(--motion)));
+    box-shadow: 0 0 40px rgba(255,121,198,0.8);
+  }
+
+  input[type="text"] {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px 0;
+    width: 80%;
+    font-size: 1em;
+  }
+
+  button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #ff4081, #ff79c6);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 15px #ff4081;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  button:hover {
+    transform: scale(calc(1.05 * var(--motion)));
+    background: linear-gradient(90deg, #ff79c6, #0ff);
+  }
+
+  /* === Forecast === */
+  .forecast {
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    border-radius: 10px;
+    font-style: italic;
+    color: #aeefff;
+    text-shadow: 0 0 8px #0ff;
+    margin-bottom: 15px;
+  }
+
+  /* === Magic 8 Ball === */
+  #eightBall {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #222 40%, #000);
+    box-shadow: inset 0 0 50px #00ffffaa, 0 0 40px #00ffffaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    font-size: 4rem;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  #eightBall.shake {
+    animation: shake calc(0.8s * var(--motion)) ease-in-out,
+               glowPulse calc(1.5s * var(--motion)) ease-in-out infinite alternate;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(5deg); }
+  }
+  @keyframes glowPulse {
+    from { box-shadow: inset 0 0 30px #0ff, 0 0 20px #0ff; }
+    to { box-shadow: inset 0 0 60px #ff79c6, 0 0 40px #ff79c6; }
+  }
+
+  /* === Love Meter === */
+  .love-meter {
+    width: 80%;
+    height: 12px;
+    background: #333;
+    border-radius: 10px;
+    margin: 10px auto;
+    overflow: hidden;
+  }
+  .love-meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff4081, #ff79c6, #ffb6c1);
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+  }
+  .love-meter-fill.pulse {
+    animation: heartPulse calc(1s * var(--motion)) infinite alternate;
+  }
+  @keyframes heartPulse {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.6); }
+  }
+
+  /* === Fate Card === */
+  .fate-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #ff79c6;
+    border-radius: 15px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    display: inline-block;
+    color: #ffd1dc;
+    text-shadow: 0 0 6px #ff79c6;
+    animation: fadeIn 1s forwards;
+  }
+  .rare {
+    border-color: gold;
+    color: #ffeb99;
+    text-shadow: 0 0 8px gold;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* === Floating Particles === */
+  .particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    animation: floatParticle 8s linear infinite;
+    opacity: calc(0.8 * var(--motion));
+  }
+
+  @keyframes floatParticle {
+    from { transform: translateY(100vh) scale(0.5); opacity: 0.6; }
+    to { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  /* === Accessibility Controls === */
+  .settings {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #aeefff;
+  }
+
+  .settings label {
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>✨ Destiny Orb: Cosmic Edition ✨</h1>
+<div class="forecast" id="forecast"></div>
+
+<div class="container">
+  <h2>Ask the Orb</h2>
+  <div id="eightBall">🎱</div>
+  <input id="question" type="text" placeholder="Type your question here">
+  <br>
+  <button onclick="shake8Ball()">Ask</button>
+  <p id="answer"></p>
+  <div id="fateCardContainer"></div>
+</div>
+
+<div class="container">
+  <h2>Relationship Predictor 💕</h2>
+  <input id="name1" placeholder="Your name">
+  <input id="name2" placeholder="Their name">
+  <button onclick="predictMatch()">Predict</button>
+  <div class="love-meter"><div id="loveMeterFill" class="love-meter-fill"></div></div>
+  <p id="matchResult"></p>
+</div>
+
+<div class="settings">
+  <input type="checkbox" id="reduceMotion" onchange="toggleMotion()">
+  <label for="reduceMotion">Reduce motion / animations</label>
+</div>
+
+<script>
+/* === Answers and Cards === */
+const answers = [
+  "Yes", "No", "Maybe", "Definitely", "Ask again later",
+  "Absolutely", "Certainly not", "Very likely", "Unlikely",
+  "Without a doubt", "Impossible", "Signs point to yes", "Concentrate and ask again"
+];
+
+const fateCards = [
+  "The stars are aligning in your favor 🌟",
+  "Patience will reveal the truth 🕊️",
+  "Fortune favors the bold 💫",
+  "A new opportunity awaits 🎁",
+  "Follow your intuition ✨",
+  "Trust the journey 🚀",
+  "Your energy attracts your destiny 🌙",
+  "Rare: The cosmos bends in your favor 💎"
+];
+
+let lastQuestion = "";
+
+/* === Main 8 Ball Function === */
+function shake8Ball() {
+  const question = document.getElementById('question').value.trim();
+  const answerElement = document.getElementById('answer');
+  const fateContainer = document.getElementById('fateCardContainer');
+  const eightBall = document.getElementById('eightBall');
+
+  if (!question) {
+    answerElement.textContent = "Please ask a question!";
+    return;
+  }
+
+  eightBall.classList.add("shake");
+  setTimeout(() => eightBall.classList.remove("shake"), 1000);
+
+  setTimeout(() => {
+    let randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+    if (question === lastQuestion) {
+      randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+    }
+    lastQuestion = question;
+
+    answerElement.textContent = randomAnswer;
+
+    fateContainer.innerHTML = "";
+    const card = document.createElement("div");
+    card.classList.add("fate-card");
+    const rareChance = Math.random() < 0.1;
+    if (rareChance) card.classList.add("rare");
+    card.textContent = fateCards[Math.floor(Math.random() * fateCards.length)];
+    fateContainer.appendChild(card);
+  }, 1200);
+}
+
+/* === Relationship Predictor === */
+function predictMatch() {
+  const name1 = document.getElementById("name1").value.trim();
+  const name2 = document.getElementById("name2").value.trim();
+  const result = document.getElementById("matchResult");
+  const fill = document.getElementById("loveMeterFill");
+
+  if (!name1 || !name2) {
+    result.textContent = "Please enter both names!";
+    fill.style.width = "0%";
+    return;
+  }
+
+  const seed = Array.from(name1 + name2).reduce((a,c)=>a+c.charCodeAt(0),0);
+  const percent = seed % 101;
+  let tier = percent > 85 ? "S+" : percent > 70 ? "A" : percent > 55 ? "B" : percent > 40 ? "C" : "D";
+
+  result.textContent = `${name1} ❤️ ${name2} — Compatibility: ${percent}% (Tier ${tier})`;
+  fill.style.width = `${percent}%`;
+  fill.classList.toggle("pulse", percent > 75);
+}
+
+/* === Forecast === */
+const forecasts = [
+  "✨ Today’s energy: Focus on gratitude and small wins.",
+  "🌙 The stars whisper: Rest before new challenges arise.",
+  "🔥 Confidence attracts success—walk boldly today.",
+  "🌊 Let go of control; destiny flows in your favor.",
+  "🌟 Someone’s thinking of you in kindness."
+];
+document.getElementById("forecast").textContent =
+  forecasts[Math.floor(Math.random() * forecasts.length)];
+
+/* === Floating Particles === */
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement("div");
+  p.classList.add("particle");
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDelay = Math.random() * 8 + "s";
+  document.body.appendChild(p);
+}
+
+/* === Reduce Motion Toggle === */
+function toggleMotion() {
+  const reduced = document.getElementById("reduceMotion").checked;
+  document.documentElement.style.setProperty("--motion", reduced ? 0 : 1);
+}
+</script>
+
+</body>
+</html>
